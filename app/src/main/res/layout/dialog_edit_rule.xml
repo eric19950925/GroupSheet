@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/tv_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:background="@color/steel"
+            android:text="條件名稱" />
+
+        <EditText
+            android:id="@+id/ed_c1"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:maxLength="20"
+            android:hint="條件a" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/ed_option_name"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="選項名稱"
+                android:textColor="@color/white"
+                android:background="@color/steel"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/ed_option_value"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimaryDark"
+                android:text="選項金額"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/ed_option1_name"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:maxLength="8"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/ed_option1_value"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:maxLength="5"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/ed_option2_name"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:maxLength="8"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/ed_option2_value"
+                android:layout_width="match_parent"
+                android:maxLength="5"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/ed_option3_name"
+                android:layout_width="match_parent"
+                android:maxLength="8"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/ed_option3_value"
+                android:layout_width="match_parent"
+                android:maxLength="5"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/ed_option4_name"
+                android:layout_width="match_parent"
+                android:maxLength="8"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/ed_option4_value"
+                android:layout_width="match_parent"
+                android:maxLength="5"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/ed_option5_name"
+                android:layout_width="match_parent"
+                android:maxLength="8"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/ed_option5_value"
+                android:layout_width="match_parent"
+                android:maxLength="5"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

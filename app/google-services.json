@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "301299333147",
+    "firebase_url": "https://groupsheet-cc3ac.firebaseio.com",
+    "project_id": "groupsheet-cc3ac",
+    "storage_bucket": "groupsheet-cc3ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:301299333147:android:0aaceedcecf07b825d20be",
+        "android_client_info": {
+          "package_name": "com.eric.groupsheet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "301299333147-dlbtfuei0lf9fve3cktllp7mu43obo1v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eric.groupsheet",
+            "certificate_hash": "85db17dc85bd3db585effb95f543b7a64af3a413"
+          }
+        },
+        {
+          "client_id": "301299333147-e36uk68jomqah3gp4v0g844r5p22el2o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApAxgT98aZ5nykz89hF1dJWVaNpSVaWMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "301299333147-e36uk68jomqah3gp4v0g844r5p22el2o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-5311420166054835~6441170794"
+    }
+  ],
+  "configuration_version": "1"
+}

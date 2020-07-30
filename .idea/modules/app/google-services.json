@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "301299333147",
+    "firebase_url": "https://groupsheet-cc3ac.firebaseio.com",
+    "project_id": "groupsheet-cc3ac",
+    "storage_bucket": "groupsheet-cc3ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:301299333147:android:0aaceedcecf07b825d20be",
+        "android_client_info": {
+          "package_name": "com.eric.groupsheet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "301299333147-19m6r1lbhqhnbs2p5taegnbsg71u3atr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eric.groupsheet",
+            "certificate_hash": "508bc6089b9d155af9c5bfe77b6b1089d62401a3"
+          }
+        },
+        {
+          "client_id": "301299333147-e36uk68jomqah3gp4v0g844r5p22el2o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApAxgT98aZ5nykz89hF1dJWVaNpSVaWMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "301299333147-e36uk68jomqah3gp4v0g844r5p22el2o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

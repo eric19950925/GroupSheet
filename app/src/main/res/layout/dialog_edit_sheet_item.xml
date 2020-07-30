@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_width="280dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
+    android:orientation="horizontal">
+    <TextView
+        android:id="@+id/tv_Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="姓名" />
+    <TextView
+        android:id="@+id/tv_Sub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="已繳金額" />
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:id="@+id/tv_mName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="26dp"
+        android:textColor="@color/colorPrimary"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+    <EditText
+        android:id="@+id/ed_mSub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimary"
+        android:ems="10"
+        android:inputType="number"
+        />
+</LinearLayout>
+
+
+        <TextView
+        android:id="@+id/tv_c1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="條件a" />
+
+        <Spinner
+            android:id="@+id/sp_c1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+        <TextView
+            android:id="@+id/tv_c2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="條件b" />
+
+        <Spinner
+            android:id="@+id/sp_c2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+        <TextView
+            android:id="@+id/tv_c3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="條件c" />
+
+        <Spinner
+            android:id="@+id/sp_c3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+        <TextView
+            android:id="@+id/tv_c4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="條件d" />
+
+        <Spinner
+            android:id="@+id/sp_c4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+        <TextView
+            android:id="@+id/tv_c5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="條件e" />
+
+        <Spinner
+            android:id="@+id/sp_c5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

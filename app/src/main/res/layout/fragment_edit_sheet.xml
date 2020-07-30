@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_edit_SName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:text="重新命名" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textSize="30dp"
+            android:layout_weight="1"
+            android:text="表單名稱" />
+
+        <TextView
+            android:id="@+id/tv_rule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            android:gravity="center"
+            android:text="編輯規則" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_center_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/hs_data_title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/main_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_edit_Sheet_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_style_feature1"
+                android:gravity="center"
+                android:text="重新命名"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_List_analysis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_style_feature1"
+                android:gravity="center"
+                android:text="表單分析"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_edit_Sheet_rule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_style_feature1"
+                android:gravity="center"
+                android:text="編輯規則"
+                android:textColor="@color/white"
+
+                android:textSize="18sp" />
+<!--
+            <TextView
+                android:id="@+id/tv_life"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_style_feature1"
+                android:gravity="center"
+                android:text="人生的奧秘"
+                android:textColor="@color/white"
+                android:textSize="18sp" />-->
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/hs_data_title"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:scrollbars="none"
+        android:layout_marginTop="2dp"
+        android:paddingEnd="5dp"
+        app:layout_constraintStart_toEndOf="@+id/rv_name"
+        app:layout_constraintTop_toBottomOf="@+id/ll_center_panel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/hs_data">
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            app:cardBackgroundColor="@color/colorPrimaryLight"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/item_MemberType"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:text="分類" />
+                <TextView
+                    android:id="@+id/item_c1"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:text="條件a" />
+                <TextView
+                    android:id="@+id/item_c2"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:text="條件b" />
+                <TextView
+                    android:id="@+id/item_c3"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:text="條件c" />
+                <TextView
+                    android:id="@+id/item_c4"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:text="條件d" />
+                <TextView
+                    android:id="@+id/item_c5"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:text="條件e" />
+                <TextView
+                    android:id="@+id/item_total"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:text="應繳金額" />
+                <TextView
+                    android:id="@+id/item_submit"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:text="已繳金額" />
+                <TextView
+                    android:id="@+id/item_left"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:text="尚須繳款" />
+                <TextView
+                    android:id="@+id/item_history"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:text="歷史紀錄" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </HorizontalScrollView>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:visibility="gone"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@+id/hs_data_title"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+    </View>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hs_data_title" />
+    <View
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimary"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@+id/hs_data_title"
+        app:layout_constraintEnd_toStartOf="@+id/hs_data"
+        app:layout_constraintStart_toEndOf="@+id/rv_name"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_name">
+
+    </View>
+
+    <HorizontalScrollView
+        android:id="@+id/hs_data"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="10dp"
+        android:paddingEnd="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rv_name"
+        app:layout_constraintTop_toBottomOf="@+id/hs_data_title">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_sheetData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </HorizontalScrollView>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:adSize="SMART_BANNER"
+        app:adUnitId="@string/banner_ad_unit_id"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+    </com.google.android.gms.ads.AdView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
