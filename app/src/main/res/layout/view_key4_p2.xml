@@ -80,12 +80,14 @@
             android:layout_margin="30dp"
             android:textColor="@color/black"
             android:text="@string/key4_msg_rebron2" />
+
         <ImageView
+            android:id="@+id/img_Key4_v2_1"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:visibility="gone"
-            android:src="@drawable/three_parts_of_human"/>
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/common_google_signin_btn_icon_dark_focused" />
     </LinearLayout>
 </ScrollView>
 

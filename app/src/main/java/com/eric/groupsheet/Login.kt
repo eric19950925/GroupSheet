@@ -17,6 +17,7 @@ class Login :BaseFragment(){
     private val USER_EMAIL = "UserEmail"
     private val USER_PHOTO = "UserPhotoUrl"
     private val USER_ID = "UserID"
+    private val NEWS_VERSION = "NewsVersion"
     lateinit var mUserAccount : AccountClass
     override fun initData() {
     }
@@ -26,14 +27,15 @@ class Login :BaseFragment(){
             userName: String,
             userEmail: String,
             userPhotoUrl: String,
-            userID: String
+            userID: String,
+            newsVersion: Int
         ) = Login().apply {
             arguments = Bundle().apply {
                 putString(USER_NAME, userName)
                 putString(USER_EMAIL, userEmail)
                 putString(USER_PHOTO, userPhotoUrl)
                 putString(USER_ID, userID)
-
+                putInt(NEWS_VERSION,newsVersion)
             }
 
         }
@@ -46,7 +48,8 @@ class Login :BaseFragment(){
             arguments?.getString(USER_NAME,"").toString(),
             arguments?.getString(USER_EMAIL,"").toString(),
             arguments?.getString(USER_PHOTO,"").toString(),
-            arguments?.getString(USER_ID,"").toString()
+            arguments?.getString(USER_ID,"").toString(),
+            arguments?.getInt(NEWS_VERSION)?:0
         )
         accountViewModel.userAccount.value = mUserAccount
         Log.d("TAG",accountViewModel.userAccount.value?.userID.toString())

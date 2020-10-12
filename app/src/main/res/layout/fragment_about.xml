@@ -24,93 +24,121 @@
 
     </LinearLayout>
 
-
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/sc_contain"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="60dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <LinearLayout
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_UserName"
-                android:layout_width="wrap_content"
+            android:layout_height="0dp">
+            <LinearLayout
+                android:id="@+id/linearLayout7"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="20dp"
-                android:gravity="right"
-                android:layout_marginEnd="10dp"
-                android:text="開發者名稱" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/UserName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold|italic"
-                android:textColor="@color/colorPrimaryLight"
-                android:textSize="20dp"
-                android:text="PeaceMaker0925" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_UserEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="開發者信箱" />
+                    <TextView
+                        android:id="@+id/tv_UserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="開發者名稱"
+                        android:textSize="20dp" />
 
-            <TextView
-                android:id="@+id/UserEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold|italic"
-                android:textColor="@color/colorPrimaryLight"
-                android:textSize="20dp"
-                android:text="ericshih0925@gmail.com" />
-        </LinearLayout>
-        <ImageView
-            android:id="@+id/img_Account"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ball1" />
-        <TextView
-            android:id="@+id/tv_intro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textStyle="bold|italic"
-            android:textColor="@color/colorPrimaryLight"
-            android:textSize="20dp"
-            android:text="新功能開發中，敬請期待 " />
+                    <TextView
+                        android:id="@+id/UserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="PeaceMaker0925"
+                        android:textColor="@color/colorPrimaryLight"
+                        android:textSize="20dp"
+                        android:textStyle="bold|italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_UserEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="開發者信箱"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/UserEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ericshih0925@gmail.com"
+                        android:textColor="@color/colorPrimaryLight"
+                        android:textSize="20dp"
+                        android:textStyle="bold|italic" />
+                </LinearLayout>
 
     </LinearLayout>
+<ScrollView
+    android:id="@+id/sc_Img"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toTopOf="@+id/tv_intro"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+    >
+    <ImageView
+        android:id="@+id/img_Account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+
+</ScrollView>
+
+    <TextView
+        android:id="@+id/tv_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="新功能開發中，敬請期待 "
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="20dp"
+        android:textStyle="bold|italic"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sc_Img" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="match_parent"

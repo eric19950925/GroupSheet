@@ -1,8 +1,10 @@
 package com.eric.groupsheet.Life
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
+import com.eric.groupsheet.R
 
 class ViewPagerAdapter(var viewlist:ArrayList<View>): PagerAdapter(){
         override fun isViewFromObject(view: View, `object`: Any): Boolean {

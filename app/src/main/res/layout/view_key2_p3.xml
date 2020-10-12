@@ -34,6 +34,14 @@
                 android:layout_margin="30dp"
                 android:textColor="@color/black"
                 android:text="@string/key2_msg_human_fall" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="400dp"
+                android:layout_height="400dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/common_google_signin_btn_icon_dark_focused" />
+
             <TextView
                 android:id="@+id/textView133"
                 android:layout_width="match_parent"

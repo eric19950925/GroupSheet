@@ -20,6 +20,9 @@ class MainHomeViewModel(
     private var toAccountPage:()->Unit,
     private var toLifePage:()->Unit
     ):ViewModel() {
+    var Answer = MutableLiveData<Int>()
+    var Tutorial_toNameList = MutableLiveData<Int>()
+    var Tutorial_addSheet = MutableLiveData<Int>()
     var UserId : MutableLiveData<String> = MutableLiveData<String>()
     var SheetListRef = FirebaseDatabase.getInstance().getReference("userData")
     var SheetList = MutableLiveData<List<SheetClass>>()

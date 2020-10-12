@@ -1,8 +1,9 @@
 package com.eric.groupsheet.MVVM
 
-import com.eric.groupsheet.EditSheet.EditRuleViewModel
-import com.eric.groupsheet.EditSheet.EditSheetViewModel
-import com.eric.groupsheet.EditSheet.SheetAnalysisViewModel
+import com.eric.groupsheet.EditSheet.EditRule.EditRuleViewModel
+import com.eric.groupsheet.EditSheet.EditRule.TextRecogCamViewModel
+import com.eric.groupsheet.EditSheet.EditSheet.EditSheetViewModel
+import com.eric.groupsheet.EditSheet.SheetAnalysis.SheetAnalysisViewModel
 import com.eric.groupsheet.Life.LifeViewModel
 import com.eric.groupsheet.LoginViewModel
 import com.eric.groupsheet.MainHome.MainHomeViewModel
@@ -37,7 +38,10 @@ val viewModelModule = module {
         SheetViewModel()
     }
     viewModel {
-        EditRuleViewModel()
+        EditRuleViewModel(
+            get<Navigator>()::toSearchPage,
+            get<Navigator>()::toCameraPage
+        )
     }
     viewModel {
         SharedAccountViewModel()
@@ -54,5 +58,8 @@ val viewModelModule = module {
     }
     viewModel {
         SheetAnalysisViewModel()
+    }
+    viewModel {
+        TextRecogCamViewModel()
     }
 }

@@ -3,9 +3,11 @@ package com.eric.groupsheet.MVVM
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.eric.groupsheet.*
-import com.eric.groupsheet.EditSheet.EditRule
-import com.eric.groupsheet.EditSheet.EditSheet
-import com.eric.groupsheet.EditSheet.SheetAnalysis
+import com.eric.groupsheet.EditSheet.EditRule.EditRule
+import com.eric.groupsheet.EditSheet.EditRule.PlanSearch
+import com.eric.groupsheet.EditSheet.EditRule.TextRecogCam
+import com.eric.groupsheet.EditSheet.EditSheet.EditSheet
+import com.eric.groupsheet.EditSheet.SheetAnalysis.SheetAnalysis
 import com.eric.groupsheet.Life.*
 import com.eric.groupsheet.MainHome.MainHome
 import com.eric.groupsheet.NameList.NameList
@@ -23,13 +25,16 @@ fun Navigator.toLoginPage(
     userName: String,
     userEmail: String,
     userPhotoUrl: String,
-    userID: String
+    userID: String,
+    newsVersion: Int
 ) {
     addPage(Login.newInstance(
         userName,
         userEmail,
         userPhotoUrl,
-        userID))
+        userID,
+        newsVersion
+    ))
 }
 fun Navigator.toNameListPage(){
     addPage(NameList.newInstance())
@@ -63,6 +68,14 @@ fun Navigator.toAccountPage(){
 
 fun Navigator.toKey1Page(){
     addPage(Key1.newInstance())
+}
+
+fun Navigator.toSearchPage(){
+    addPage(PlanSearch.newInstance())
+}
+
+fun Navigator.toCameraPage(){
+    addPage(TextRecogCam.newInstance())
 }
 
 fun Navigator.addPage(fragment: Fragment){

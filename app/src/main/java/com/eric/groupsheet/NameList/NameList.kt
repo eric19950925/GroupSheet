@@ -1,5 +1,6 @@
 package com.eric.groupsheet.NameList
 
+import android.content.Context
 import android.content.DialogInterface
 import android.util.Log
 import android.view.View
@@ -10,11 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.eric.groupsheet.MainHome.SharedAccountViewModel
 import com.eric.groupsheet.R
 import com.eric.groupsheet.base.BaseFragment
+import com.eric.groupsheet.base.listenClick
 import com.eric.groupsheet.base.observe
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.fragment_name_list.*
 import kotlinx.android.synthetic.main.fragment_name_list.adView
+import kotlinx.android.synthetic.main.fragment_name_list.got_it
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.time.LocalDateTime
@@ -28,6 +31,7 @@ class NameList:BaseFragment() ,NameListController{
     private val accountViewModel by sharedViewModel<SharedAccountViewModel>()
     override fun initData() {
         Log.d("TAG",accountViewModel.userAccount.value?.userID.toString())
+        checkAnswer()
     }
 
     override fun initObserver () {
@@ -35,8 +39,17 @@ class NameList:BaseFragment() ,NameListController{
             val nameListAdapter = NameListAdapter(it,this)
             rv_nameList.adapter = nameListAdapter
         }
+        observe(viewModel.Tutorial_addNameList){
+            if(it == 0){
+                cl_tutorial_to_add_nameList.visibility = View.VISIBLE
+            }
+            else cl_tutorial_to_add_nameList.visibility = View.GONE
+        }
     }
-
+    private fun checkAnswer() {
+        val sharedPreference =  context?.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+        viewModel.Tutorial_addNameList.value = sharedPreference?.getInt("Tutorial_addNameList",0)
+    }
     override fun initView() {
         tv_newName.setOnClickListener {
             if(viewModel.NameList.value?.size!! > 19){
@@ -105,6 +118,15 @@ class NameList:BaseFragment() ,NameListController{
         MobileAds.initialize(context) {}
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
+
+        got_it.listenClick {
+            val sharedPreference =  context?.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+            val editor = sharedPreference?.edit()
+            editor?.putInt("Tutorial_addNameList",1)
+            editor?.apply()
+            checkAnswer()
+            viewModel.Tutorial_addNameList.value = 1
+        }
     }
 
     private fun ToTypeNum(userSex: String, userAge: String): Int =

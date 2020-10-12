@@ -9,4 +9,5 @@
     <color name="steel">#77899C</color>
     <color name="red">#BB2A2A</color>
     <color name="black">#000000</color>
+    <color name="black_alpha80">#CC000000</color>
 </resources>

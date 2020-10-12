@@ -1,34 +1,56 @@
 package com.eric.groupsheet.MainHome
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.AsyncTask
 import android.os.Build
+import android.os.Environment
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.RadioButton
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.eric.groupsheet.MainActivity
 import com.eric.groupsheet.NameList.NameListViewModel
 import com.eric.groupsheet.R
 import com.eric.groupsheet.base.BaseFragment
+import com.eric.groupsheet.base.listenClick
 import com.eric.groupsheet.base.observe
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_mainhome.*
+import kotlinx.android.synthetic.main.fragment_mainhome.adView
+import kotlinx.android.synthetic.main.fragment_mainhome.got_it
+import kotlinx.android.synthetic.main.fragment_name_list.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.io.*
+import java.net.MalformedURLException
+import java.net.URL
+import java.net.URLConnection
+import java.net.URLEncoder
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainHome : BaseFragment(),SheetListController{
     private val viewModel by viewModel<MainHomeViewModel>()
     private val nameListviewModel by sharedViewModel<NameListViewModel>()
+    lateinit var DVReference : DatabaseReference
     private val accountViewModel by sharedViewModel<SharedAccountViewModel>()
     lateinit var mSheet : SheetClass
+    val funTest = "002"
     override fun getLayoutRes(): Int =
         R.layout.fragment_mainhome
 
@@ -44,15 +66,42 @@ class MainHome : BaseFragment(),SheetListController{
             val sheetListAdapter = SheetListAdapter(it,this)
             rv_sheetList.adapter = sheetListAdapter
         }
+        observe(viewModel.Answer){
+            if(it == 1){
+                buy.visibility = View.GONE
+            }
+        }
+        observe(viewModel.Tutorial_addSheet){
+            if(it == 0 && nameListviewModel.NameList.value?.size != 0 && viewModel.Tutorial_toNameList.value != 0){
+                cl_tutorial_Addsheet.visibility = View.VISIBLE
+            }else cl_tutorial_Addsheet.visibility = View.GONE
+        }
+        observe(viewModel.Tutorial_toNameList){
+            if(it == 0){
+                cl_tutorial_nameList.visibility = View.VISIBLE
+            }else cl_tutorial_nameList.visibility = View.GONE
+        }
     }
 
     override fun onFragmentShow() {
         super.onFragmentShow()
         checkInternet({})
-
+        checkNews()
+        checkAnswer()
         MobileAds.initialize(context) {}
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
+
+    }
+
+    private fun checkAnswer() {
+        val sharedPreference =  context?.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+//        val editor = sharedPreference?.edit()
+//        editor?.putInt("AnswerSheet",0)
+//        editor?.apply()
+        viewModel.Answer.value = sharedPreference?.getInt("AnswerSheet",0)
+        viewModel.Tutorial_toNameList.value = sharedPreference?.getInt("Tutorial_toNameList",0)
+        viewModel.Tutorial_addSheet.value = sharedPreference?.getInt("Tutorial_addSheet",0)
     }
 
     private fun checkInternet(toGo:()->Unit) {
@@ -110,11 +159,11 @@ class MainHome : BaseFragment(),SheetListController{
 
 
 
-        tv_nameList.setOnClickListener { checkInternet({viewModel.toNameList()} )}
-        tv_setting.setOnClickListener { viewModel.toSetting() }
-        tv_about.setOnClickListener {  checkInternet({viewModel.toAbout()} ) }
-        tv_newList.setOnClickListener {  checkInternet({createNewList()} )}
-        tv_life.setOnClickListener { viewModel.toLife() }
+        tv_nameList.listenClick { checkInternet({viewModel.toNameList()} )}
+        tv_setting.listenClick { viewModel.toSetting() }
+        tv_about.listenClick {  checkInternet({viewModel.toAbout()} ) }
+        tv_newList.listenClick {  checkInternet({createNewList()} )}
+        tv_life.listenClick { viewModel.toLife() }
 
         viewModel.reloadSheetList(accountViewModel.userAccount.value?.userID.toString())
         rv_sheetList.setHasFixedSize(true)
@@ -122,10 +171,211 @@ class MainHome : BaseFragment(),SheetListController{
         val sheetListAdapter = viewModel.SheetList.value?.let { SheetListAdapter(it,this) }
         rv_sheetList.adapter = sheetListAdapter
 
-        tv_account.setOnClickListener {
+        tv_account.listenClick {
             checkInternet( { viewModel.toAccount() } )
         }
+        buy.listenClick {
+            when(funTest){
+                "001"->checkToDownload()//未來下載檔案的方法預寫
+                "002"->takeAns()//資料統計尚未實作
+            }
+        }
+        got_it.listenClick {
+            val sharedPreference =  context?.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+            val editor = sharedPreference?.edit()
+            editor?.putInt("Tutorial_toNameList",1)
+            editor?.apply()
+            checkAnswer()
+            viewModel.Tutorial_toNameList.value = 1
+        }
+        got_it_addSheet.listenClick {
+            val sharedPreference =  context?.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+            val editor = sharedPreference?.edit()
+            editor?.putInt("Tutorial_addSheet",1)
+            editor?.apply()
+            checkAnswer()
+            viewModel.Tutorial_addSheet.value = 1
+        }
 
+    }
+
+    private fun takeAns() {
+        val MoreSheetsView : View = getLayoutInflater().inflate(R.layout.dialog_more_sheets,null)
+            val builder = activity?.let { it1 -> AlertDialog.Builder(it1) }
+            builder?.setView(MoreSheetsView)
+            builder?.setTitle("需求調查")
+            builder?.setPositiveButton("確定", DialogInterface.OnClickListener { dialog, which ->
+                val rbEnough: RadioButton =MoreSheetsView.findViewById(R.id.rb_enough)
+                val rb5more: RadioButton =MoreSheetsView.findViewById(R.id.rb_5more)
+                val rb10more: RadioButton =MoreSheetsView.findViewById(R.id.rb_10more)
+                val rbSub: RadioButton =MoreSheetsView.findViewById(R.id.rb_sub)
+                val rbNotSub: RadioButton =MoreSheetsView.findViewById(R.id.rb_not_sub)
+                val rbBuy: RadioButton =MoreSheetsView.findViewById(R.id.rb_buy)
+                val rbNotBuy: RadioButton =MoreSheetsView.findViewById(R.id.rb_not_buy)
+                val rbAd: RadioButton =MoreSheetsView.findViewById(R.id.rb_ad)
+                val rbNotAd: RadioButton =MoreSheetsView.findViewById(R.id.rb_not_ad)
+                var SheetAmount = "None"
+                var SheetSub = "None"
+                var SheetBuy = "None"
+                var SheetAd = "None"
+                rbEnough.let{
+                    if(it.isChecked)SheetAmount = "0"
+                }
+                rb5more.let{
+                    if(it.isChecked)SheetAmount = "5"
+                }
+                rb10more.let{
+                    if(it.isChecked)SheetAmount = "10"
+                }
+                rbSub.let {
+                    if(it.isChecked)SheetSub = "Sub"
+                }
+                rbNotSub.let{
+                    if(it.isChecked)SheetSub = "NotSub"
+                }
+                rbBuy.let {
+                    if(it.isChecked)SheetBuy = "Buy"
+                }
+                rbNotBuy.let{
+                    if(it.isChecked)SheetBuy = "NotBuy"
+                }
+                rbAd.let {
+                    if(it.isChecked)SheetAd = "Ad"
+                }
+                rbNotAd.let{
+                    if(it.isChecked)SheetAd = "NotAd"
+                }
+
+                val currentDateTime= LocalDateTime.now()
+
+//                mMember = MemberClass(
+//                    id = currentDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")),
+//                    who = etMemberName.text.toString(),
+//                    type = ToTypeNum( userSex , userAge )
+//                )
+//
+//                viewModel.addMember(mMember,accountViewModel.userAccount.value?.userID.toString())
+//                viewModel.reloadNameList(accountViewModel.userAccount.value?.userID.toString())
+                if(SheetAmount .equals("None")|| SheetSub .equals("None")||
+                    SheetBuy .equals("None")|| SheetAd .equals("None")){
+                    Toast.makeText(context,"遞交失敗，每題都需選擇!",Toast.LENGTH_LONG).show()
+                }else{
+                    viewModel.Answer.value = 1
+                    val sharedPreference =  context?.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+                    val editor = sharedPreference?.edit()
+                    editor?.putInt("AnswerSheet",viewModel.Answer.value?:0)
+                    editor?.apply()
+                    checkAnswer()
+                    Toast.makeText(context,"遞交成功!",Toast.LENGTH_LONG).show()
+                    dialog.dismiss()
+                }
+
+            })?.setNegativeButton("取消", DialogInterface.OnClickListener { dialog, which ->
+                dialog.dismiss()
+            })
+            builder?.show()
+    }
+
+    private fun checkToDownload() {
+        val permission_write = activity?.let { it1 ->
+            ContextCompat.checkSelfPermission(
+                it1,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+        if (permission_write != PackageManager.PERMISSION_GRANTED) {
+            setupPermissions()
+            return
+        } else downloadMp4()
+    }
+
+    private fun downloadMp4() {
+
+        class ProgressTask: AsyncTask<Void, Void, String>() {
+            val progressDialog :Dialog = ProgressDialog(context)
+            private val TIMEOUT_CONNECTION = 5000 //5sec
+            private val TIMEOUT_SOCKET = 30000 //30sec
+
+            override fun onPreExecute() {
+                progressDialog.setTitle("Downloading...")
+                progressDialog.show()
+            }
+
+
+            override fun onPostExecute(result: String?) {
+                progressDialog.dismiss()
+            }
+
+            override fun doInBackground(vararg p0: Void?): String {
+                try {
+                    val url = URL("http://vjs.zencdn.net/v/oceans.mp4")
+                    val startTime = System.currentTimeMillis()
+                    Log.i("TAG", "video download beginning: $url")
+
+                    //Open a connection to that URL.
+                    val ucon: URLConnection = url.openConnection()
+
+                    //this timeout affects how long it takes for the app to realize there's a connection problem
+                    ucon.setReadTimeout(TIMEOUT_CONNECTION)
+                    ucon.setConnectTimeout(TIMEOUT_SOCKET)
+
+
+                    //Define InputStreams to read from the URLConnection.
+                    // uses 3KB download buffer
+                    val `is`: InputStream = ucon.getInputStream()
+                    val inStream = BufferedInputStream(`is`, 1024 * 5)
+                    val outStream = FileOutputStream(
+                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                            .toString().toString() + "/new.mp4"
+                    )
+                    val buff = ByteArray(5 * 1024)
+
+                    //Read bytes (and store them) until there is nothing more to read(-1)
+                    var len: Int = 0
+                    while (inStream.read(buff).also({ len = it }) != -1) {
+                        outStream.write(buff, 0, len)
+                    }
+                    //clean up
+                    outStream.flush()
+                    outStream.close()
+                    inStream.close()
+
+                    Log.i(
+                        "TAG", "download completed in "
+                                + (System.currentTimeMillis() - startTime) / 1000
+                                + " sec"
+                    )
+                }catch (e: MalformedURLException){
+                    Log.e("TAG", "MalformedURLException", e)
+                }catch (e: FileNotFoundException) {
+                    Log.e("TAG", "FileNotFoundException", e)
+                } catch (e: IOException) {
+                    Log.e("TAG", "IOException", e)
+                }
+                return "Executed"
+            }
+        }
+
+        val progressTask = ProgressTask()
+        progressTask.execute()
+    }
+
+    private fun checkNews() {
+        val sharedPreference =  context?.getSharedPreferences("PREFERENCE_NAME",Context.MODE_PRIVATE)
+        DVReference = FirebaseDatabase.getInstance().getReference("LifeData").child("updateVersion")
+        val DVListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val version = dataSnapshot.getValue().toString()
+                Log.d("TAG",version+" "+sharedPreference?.getInt("NewsVersion",0))
+                if(version.equals(sharedPreference?.getInt("NewsVersion",0).toString())){
+                    img_news.visibility = View.GONE
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w("TAG", "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        DVReference.addValueEventListener(DVListener)
     }
 
     private fun createNewList(){

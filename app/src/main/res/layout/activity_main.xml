@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:gravity="center"
@@ -19,9 +19,9 @@
 
         <Button
             android:id="@+id/btn_sign"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="20dp"
             android:textColor="@color/white"
             android:padding="10dp"
             android:textSize="18sp"
@@ -29,17 +29,16 @@
             android:text="登入以繼續使用" />
         <Button
             android:id="@+id/btn_life"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="20dp"
             android:textColor="@color/white"
-            android:padding="10dp"
             android:textSize="18sp"
             android:background="@drawable/btn_style_feature1"
             android:text="僅觀看人生的奧秘" />
         <Button
             android:id="@+id/btn_sign_out"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:layout_marginBottom="50dp"

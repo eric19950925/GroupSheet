@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:textColor="@color/white"
-            android:background="@color/steel"
+            android:background="@color/colorPrimaryLight"
             android:text="條件名稱" />
 
         <EditText
@@ -41,7 +41,7 @@
                 android:layout_weight="1"
                 android:text="選項名稱"
                 android:textColor="@color/white"
-                android:background="@color/steel"
+                android:background="@color/colorPrimaryLight"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/ed_option_value"

@@ -55,6 +55,13 @@
             android:textColor="@color/red"
             android:text="@string/key4_verse_meaning_of_christian1_h1" />
 
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/three_part_human12" />
+
         <TextView
             android:id="@+id/textView11"
             android:layout_width="match_parent"
@@ -64,11 +71,12 @@
             android:textColor="@color/black"
             android:text="@string/key4_msg_meaning_of_christian2" />
         <ImageView
+            android:id="@+id/img_Key4_v3_1"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
             android:visibility="gone"
-            android:src="@drawable/three_parts_of_human"/>
+            android:src="@drawable/common_google_signin_btn_icon_dark_focused"/>
         <TextView
             android:id="@+id/textView105"
             android:layout_width="match_parent"

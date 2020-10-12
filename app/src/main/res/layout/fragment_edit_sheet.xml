@@ -285,15 +285,17 @@
         android:layout_marginBottom="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hs_data_title" />
+
     <View
+        android:id="@+id/view3"
         android:layout_width="2dp"
         android:layout_height="0dp"
         android:background="@color/colorPrimary"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@+id/hs_data_title"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_name"
         app:layout_constraintEnd_toStartOf="@+id/hs_data"
         app:layout_constraintStart_toEndOf="@+id/rv_name"
-        app:layout_constraintBottom_toBottomOf="@+id/rv_name">
+        app:layout_constraintTop_toTopOf="@+id/hs_data_title">
 
     </View>
 
@@ -326,4 +328,93 @@
         app:layout_constraintStart_toStartOf="parent">
     </com.google.android.gms.ads.AdView>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_tutorial_editSheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_alpha80"
+        android:clickable="true"
+        android:layout_marginTop="80dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icons8_forward_arrow_96"
+            android:layout_marginEnd="220dp"
+            android:layout_marginBottom="420dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/icons8_2nd"
+            android:layout_marginEnd="220dp"
+            android:layout_marginBottom="410dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icons8_up_96"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/icons8_1st"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icons8_up_96"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="160dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/icons8_3rd"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="140dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="130dp"
+            android:text="@string/hint_edit_sheet"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/got_it"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_style_feature4"
+            android:text="@string/got_it"
+            android:textColor="@color/white"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

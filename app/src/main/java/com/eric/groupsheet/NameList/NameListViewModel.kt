@@ -13,6 +13,7 @@ import java.util.*
 class NameListViewModel(/*private var toMainHomePage:()->Unit*/):ViewModel() {
     var NameListRef = FirebaseDatabase.getInstance().getReference("userData")
     var NameList = MutableLiveData<List<MemberClass>>()
+    var Tutorial_addNameList = MutableLiveData<Int>()
     fun getOneNameData(id : String):MemberClass{
         val mMember =
             NameList.value?.find {memberClass: MemberClass -> id.equals(memberClass.memberId) }

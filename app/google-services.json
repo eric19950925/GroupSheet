@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "301299333147-f0qaq7g7rqgrq201ak8i181bqqoi9ook.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eric.groupsheet",
+            "certificate_hash": "0020573978cab2042459043ef111b10e5020f750"
+          }
+        },
+        {
           "client_id": "301299333147-dlbtfuei0lf9fve3cktllp7mu43obo1v.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

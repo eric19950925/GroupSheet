@@ -13,7 +13,19 @@ import com.eric.groupsheet.base.Controller
 import kotlinx.android.synthetic.main.item_name_list.view.*
 //如何撰寫Adapter
 class NameListAdapter(var list: List<MemberClass>, private val nameListController: NameListController) :
-    ListAdapter<MemberClass, BaseViewHolderWithController<MemberClass, NameListController>>(diffField) {
+    ListAdapter<MemberClass, BaseViewHolderWithController<MemberClass, NameListController>>(
+        object  : DiffUtil.ItemCallback<MemberClass>() {
+            override fun areItemsTheSame(oldItem: MemberClass, newItem: MemberClass): Boolean {
+                return newItem.equals(oldItem)
+            }
+            override fun areContentsTheSame(oldItem: MemberClass, newItem: MemberClass): Boolean {
+                return newItem.equals(oldItem)
+            }
+            override fun getChangePayload(oldItem: MemberClass, newItem: MemberClass): Any? {
+                return newItem
+            }
+        }
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolderWithController<MemberClass, NameListController> {
         return NameListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_name_list,parent,false))
@@ -26,6 +38,7 @@ class NameListAdapter(var list: List<MemberClass>, private val nameListControlle
         position: Int){
         val member_data: MemberClass = list[position]
         holder.onBind(member_data,nameListController)
+        holder.itemView.tv_num.text = (position + 1).toString()
     }
 }
 
@@ -64,19 +77,4 @@ class NameListViewHolder(itemView: View) : BaseViewHolderWithController<MemberCl
 interface NameListController: Controller {
     fun updateRvAfterDel(id: String)
     fun editMember(id: String)
-}
-val diffField = object  : DiffUtil.ItemCallback<MemberClass>() {
-    override fun areItemsTheSame(oldItem: MemberClass, newItem: MemberClass): Boolean {
-        return oldItem.isItemSame(newItem)
-    }
-
-    override fun areContentsTheSame(oldItem: MemberClass, newItem: MemberClass): Boolean {
-        return oldItem.isContentSameTo(newItem)
-    }
-    override fun getChangePayload(oldItem: MemberClass, newItem: MemberClass): Any? {
-        return newItem
-    }
-
-
-
 }
