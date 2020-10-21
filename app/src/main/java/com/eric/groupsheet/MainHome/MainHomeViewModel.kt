@@ -20,6 +20,7 @@ class MainHomeViewModel(
     private var toAccountPage:()->Unit,
     private var toLifePage:()->Unit
     ):ViewModel() {
+    var sheetPage = MutableLiveData<Int>()
     var Answer = MutableLiveData<Int>()
     var Tutorial_toNameList = MutableLiveData<Int>()
     var Tutorial_addSheet = MutableLiveData<Int>()
@@ -74,6 +75,7 @@ class MainHomeViewModel(
                     SheetListData?.let { NewSheetList.add(it) }
                 }
                 SheetList.value = NewSheetList
+                sheetPage.value = 0
             }
 
 

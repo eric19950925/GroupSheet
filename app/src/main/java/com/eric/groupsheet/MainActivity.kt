@@ -274,7 +274,7 @@ class MainActivity : AppCompatActivity() {
         btn_life.visibility =if(!isSignIn)View.VISIBLE else View.GONE
         tv_welcome.visibility = if(isSignIn)View.VISIBLE else View.GONE
         img_Account.visibility = if(isSignIn)View.VISIBLE else View.GONE
-        tv_welcome.text = "歡迎 $userName 進入 總務助理APP"
+        tv_welcome.text = "歡迎 $userName \n\n 您正在進入 總務小幫手APP"
         btn_sign_out.visibility = View.VISIBLE
         Picasso.get()
             .load(userPhotoUrl)

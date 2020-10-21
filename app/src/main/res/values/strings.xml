@@ -141,11 +141,13 @@
     <!-- 橫幅 測試 -->
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="banner_ad_unit_id_test">ca-app-pub-5311420166054835/7541842932</string>
-    <string name="hint_namelist">點擊最左邊的\"名單\"按鈕，新增常用名單資訊。</string>
-    <string name="first_time_login_welcome">歡迎您 ! \n請依照以下教學，製作您的總務表單 !</string>
-    <string name="hint_AddSheet">有了常用名單，\n就能新增總務表單囉 !\n請點擊\"新增表單\"按鈕即可。</string>
+    <string name="hint_namelist_s1">請點擊畫面 左上方\n\n【功能選單】按鈕。</string>
+    <string name="hint_namelist_s2">請點擊選單 第一格\n\n【名單】按鈕。</string>
+    <string name="first_time_login_welcome">歡迎使用 ! \n\n請依照以下教學，\n\n製作您第一份總務表單 !</string>
+    <string name="hint_AddSheet">有了常用名單，\n\n就能新增總務表單囉 !\n\n請至【功能選單】點選\n\n【新增表單】按鈕即可。</string>
     <string name="hint_to_Add_NameList">點擊\"新增\"，即可加入成員。</string>
     <string name="hint_finish_Add_NameList">完成後，點擊返回按鍵，\n回到首頁，準備新增表單 !</string>
     <string name="hint_edit_sheet">1、編輯規則:\n餐點、門票、住房，規則自由填寫。\n\n2、成員資料:\n點擊成員橫列，可編輯該成員付款情況。\n\n3、表單分析:\n各類選取人數、統計數據清楚呈現!</string>
     <string name="got_it">我知道了</string>
+    <string name="tv_next">下一步</string>
 </resources>

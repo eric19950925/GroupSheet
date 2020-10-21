@@ -2,10 +2,12 @@ package com.eric.groupsheet.NameList
 
 import android.content.Context
 import android.content.DialogInterface
+import android.os.Build
 import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.RadioButton
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eric.groupsheet.MainHome.SharedAccountViewModel
@@ -20,8 +22,10 @@ import kotlinx.android.synthetic.main.fragment_name_list.adView
 import kotlinx.android.synthetic.main.fragment_name_list.got_it
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 class NameList:BaseFragment() ,NameListController{
     private val viewModel by viewModel<NameListViewModel>()
@@ -50,6 +54,7 @@ class NameList:BaseFragment() ,NameListController{
         val sharedPreference =  context?.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         viewModel.Tutorial_addNameList.value = sharedPreference?.getInt("Tutorial_addNameList",0)
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
         tv_newName.setOnClickListener {
             if(viewModel.NameList.value?.size!! > 19){
@@ -94,12 +99,22 @@ class NameList:BaseFragment() ,NameListController{
                         if(it.isChecked)userAge = "Child"
                     }
                     val currentDateTime= LocalDateTime.now()
+                    val currentDateTimeOV= Calendar.getInstance().time
 
-                    mMember = MemberClass(
-                        id = currentDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")),
-                        who = etMemberName.text.toString(),
-                        type = ToTypeNum( userSex , userAge )
-                    )
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        mMember = MemberClass(
+                            id = currentDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")),
+                            who = etMemberName.text.toString(),
+                            type = ToTypeNum( userSex , userAge )
+                        )
+                    }else{
+                        val df = SimpleDateFormat("yyyyMMddHHmmss")
+                        mMember = MemberClass(
+                            id = df.format(currentDateTimeOV),
+                            who = etMemberName.text.toString(),
+                            type = ToTypeNum( userSex , userAge )
+                        )
+                    }
 
                     viewModel.addMember(mMember,accountViewModel.userAccount.value?.userID.toString())
                     viewModel.reloadNameList(accountViewModel.userAccount.value?.userID.toString())
@@ -160,6 +175,7 @@ class NameList:BaseFragment() ,NameListController{
         viewModel.DeletMember(id,accountViewModel.userAccount.value?.userID.toString())
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun editMember(id: String) {
         var mMember = viewModel.getOneNameData(id)
         val AddMemberView : View = getLayoutInflater().inflate(R.layout.dialog_add_member,null)
@@ -202,11 +218,22 @@ class NameList:BaseFragment() ,NameListController{
                 if(it.isChecked)userAge = "Child"
             }
             val currentDateTime= LocalDateTime.now()
-            mMember = MemberClass(
-                id = currentDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")),
-                who = etMemberName.text.toString(),
-                type = ToTypeNum( userSex , userAge )
-            )
+            val currentDateTimeOV= Calendar.getInstance().time
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                mMember = MemberClass(
+                    id = currentDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")),
+                    who = etMemberName.text.toString(),
+                    type = ToTypeNum( userSex , userAge )
+                )
+            }else{
+                val df = SimpleDateFormat("yyyyMMddHHmmss")
+                mMember = MemberClass(
+                    id = df.format(currentDateTimeOV),
+                    who = etMemberName.text.toString(),
+                    type = ToTypeNum( userSex , userAge )
+                )
+            }
             viewModel.updateMember(id,mMember,accountViewModel.userAccount.value?.userID.toString())
             dialog.dismiss()
         })?.setNegativeButton("取消", DialogInterface.OnClickListener { dialog, which ->

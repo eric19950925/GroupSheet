@@ -1,60 +1,65 @@
 package com.eric.groupsheet.MainHome
 
 import android.Manifest
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.Uri
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Environment
 import android.util.Log
 import android.view.View
+import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.core.animation.doOnEnd
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.eric.groupsheet.MainActivity
+import androidx.recyclerview.widget.*
 import com.eric.groupsheet.NameList.NameListViewModel
 import com.eric.groupsheet.R
-import com.eric.groupsheet.base.BaseFragment
-import com.eric.groupsheet.base.listenClick
-import com.eric.groupsheet.base.observe
+import com.eric.groupsheet.base.*
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_mainhome.*
-import kotlinx.android.synthetic.main.fragment_mainhome.adView
-import kotlinx.android.synthetic.main.fragment_mainhome.got_it
-import kotlinx.android.synthetic.main.fragment_name_list.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.*
 import java.net.MalformedURLException
 import java.net.URL
 import java.net.URLConnection
-import java.net.URLEncoder
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class MainHome : BaseFragment(),SheetListController{
+class MainHome() : BaseFragment(),SheetListController {
     private val viewModel by viewModel<MainHomeViewModel>()
     private val nameListviewModel by sharedViewModel<NameListViewModel>()
     lateinit var DVReference : DatabaseReference
     private val accountViewModel by sharedViewModel<SharedAccountViewModel>()
     lateinit var mSheet : SheetClass
+    var mVerseUrl = ""
+    lateinit var BibleVerseReference : DatabaseReference
+    lateinit var VerseUrlReference : DatabaseReference
     val funTest = "002"
     override fun getLayoutRes(): Int =
         R.layout.fragment_mainhome
 
     override fun initData() {
+        viewModel.sheetPage.value = 0
         }
 
     override fun initObserver() {
@@ -65,6 +70,53 @@ class MainHome : BaseFragment(),SheetListController{
         observe(viewModel.SheetList){
             val sheetListAdapter = SheetListAdapter(it,this)
             rv_sheetList.adapter = sheetListAdapter
+            when(it.size){
+                0 -> {
+                    ll_pager.visibility = View.INVISIBLE
+                    tv_empty.visibility = View.VISIBLE
+                }
+                1 -> {
+                    ll_pager.visibility = View.VISIBLE
+                    p1.visibility = View.VISIBLE
+                    p2.visibility = View.GONE
+                    p3.visibility = View.GONE
+                    p4.visibility = View.GONE
+                    p5.visibility = View.GONE
+                    tv_empty.visibility = View.GONE
+                }
+                2 -> {
+                    p1.visibility = View.VISIBLE
+                    p2.visibility = View.VISIBLE
+                    p3.visibility = View.GONE
+                    p4.visibility = View.GONE
+                    p5.visibility = View.GONE
+                    tv_empty.visibility = View.GONE
+                }
+                3 -> {
+                    p1.visibility = View.VISIBLE
+                    p2.visibility = View.VISIBLE
+                    p3.visibility = View.VISIBLE
+                    p4.visibility = View.GONE
+                    p5.visibility = View.GONE
+                    tv_empty.visibility = View.GONE
+                }
+                4 -> {
+                    p1.visibility = View.VISIBLE
+                    p2.visibility = View.VISIBLE
+                    p3.visibility = View.VISIBLE
+                    p4.visibility = View.VISIBLE
+                    p5.visibility = View.GONE
+                    tv_empty.visibility = View.GONE
+                }
+                5 -> {
+                    p1.visibility = View.VISIBLE
+                    p2.visibility = View.VISIBLE
+                    p3.visibility = View.VISIBLE
+                    p4.visibility = View.VISIBLE
+                    p5.visibility = View.VISIBLE
+                    tv_empty.visibility = View.GONE
+                }
+            }
         }
         observe(viewModel.Answer){
             if(it == 1){
@@ -78,8 +130,35 @@ class MainHome : BaseFragment(),SheetListController{
         }
         observe(viewModel.Tutorial_toNameList){
             if(it == 0){
-                cl_tutorial_nameList.visibility = View.VISIBLE
-            }else cl_tutorial_nameList.visibility = View.GONE
+                cl_tutorial_welcome.visibility = View.VISIBLE
+            }else cl_tutorial_welcome.visibility = View.GONE
+        }
+        observe(viewModel.sheetPage){
+            Log.d("TAG Position", "" + it)
+            setFade(rv_sheetList,it)
+            p1.background = resources.getDrawable(R.drawable.btn_style_feature3)
+            p2.background = resources.getDrawable(R.drawable.btn_style_feature3)
+            p3.background = resources.getDrawable(R.drawable.btn_style_feature3)
+            p4.background = resources.getDrawable(R.drawable.btn_style_feature3)
+            p5.background = resources.getDrawable(R.drawable.btn_style_feature3)
+            rv_sheetList.scrollToPosition(it)
+            when(it){
+                0 -> {
+                    p1.background = resources.getDrawable(R.drawable.btn_style_feature1)
+                }
+                1 -> {
+                    p2.background = resources.getDrawable(R.drawable.btn_style_feature1)
+                }
+                2 -> {
+                    p3.background = resources.getDrawable(R.drawable.btn_style_feature1)
+                }
+                3 -> {
+                    p4.background = resources.getDrawable(R.drawable.btn_style_feature1)
+                }
+                4 -> {
+                    p5.background = resources.getDrawable(R.drawable.btn_style_feature1)
+                }
+            }
         }
     }
 
@@ -153,23 +232,56 @@ class MainHome : BaseFragment(),SheetListController{
         }
         return false
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
         viewModel.UserId.value = accountViewModel.userAccount.value?.userID.toString()
         nameListviewModel.reloadNameList(accountViewModel.userAccount.value?.userID.toString())
 
-
-
+        settingRecyclerView()
+        icon_menuBar.listenClick {
+            ll_menu.show()
+            val anim = ObjectAnimator.ofFloat(ll_menu, "alpha",0f,1f)
+            anim.setDuration(200)
+            anim.start()
+        }
+        icon_close.listenClick {
+            val anim = ObjectAnimator.ofFloat(ll_menu, "alpha",1f,0f)
+            anim.setDuration(200)
+            anim.doOnEnd {
+                ll_menu.hide()
+            }
+            anim.start()
+        }
         tv_nameList.listenClick { checkInternet({viewModel.toNameList()} )}
-        tv_setting.listenClick { viewModel.toSetting() }
-        tv_about.listenClick {  checkInternet({viewModel.toAbout()} ) }
-        tv_newList.listenClick {  checkInternet({createNewList()} )}
+//        tv_setting.listenClick { viewModel.toSetting() }
+        icon_info.listenClick {  checkInternet({viewModel.toAbout()} ) }
+        tv_newList.listenClick {
+            val anim = ObjectAnimator.ofFloat(ll_menu, "alpha",1f,0f)
+            anim.setDuration(200)
+            anim.doOnEnd {
+                ll_menu.hide()
+            }
+            anim.start()
+            checkInternet({createNewList()} )
+        }
         tv_life.listenClick { viewModel.toLife() }
+        img_more.listenClick {
 
+            val builder = context?.let { it1 -> AlertDialog.Builder(it1) }
+            builder?.setTitle("要看更多文章介紹嗎?")
+            builder?.setPositiveButton("確定", DialogInterface.OnClickListener { dialog, which ->
+                val openUrl = Intent(Intent.ACTION_VIEW)
+                openUrl.data = Uri.parse(mVerseUrl)
+                startActivity(openUrl)
+                dialog.dismiss()
+            })?.setNegativeButton("取消", DialogInterface.OnClickListener { dialog, which ->
+                dialog.dismiss()
+            })
+            builder?.show()
+
+        }
         viewModel.reloadSheetList(accountViewModel.userAccount.value?.userID.toString())
-        rv_sheetList.setHasFixedSize(true)
-        rv_sheetList.layoutManager = LinearLayoutManager(context)
-        val sheetListAdapter = viewModel.SheetList.value?.let { SheetListAdapter(it,this) }
-        rv_sheetList.adapter = sheetListAdapter
 
         tv_account.listenClick {
             checkInternet( { viewModel.toAccount() } )
@@ -180,13 +292,25 @@ class MainHome : BaseFragment(),SheetListController{
                 "002"->takeAns()//資料統計尚未實作
             }
         }
+        next_step.listenClick {
+
+            cl_tutorial_nameList.visibility = View.VISIBLE
+            cl_tutorial_welcome.visibility = View.GONE
+        }
         got_it.listenClick {
+            ll_menu_for_t1.visibility = View.VISIBLE
+            cl_tutorial_nameList.visibility = View.GONE
+        }
+        tv_nameList_for_t1s.listenClick {
             val sharedPreference =  context?.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
             val editor = sharedPreference?.edit()
             editor?.putInt("Tutorial_toNameList",1)
             editor?.apply()
             checkAnswer()
             viewModel.Tutorial_toNameList.value = 1
+            ll_menu_for_t1.visibility = View.GONE
+            //to nameList page
+            checkInternet({viewModel.toNameList()} )
         }
         got_it_addSheet.listenClick {
             val sharedPreference =  context?.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
@@ -197,7 +321,107 @@ class MainHome : BaseFragment(),SheetListController{
             viewModel.Tutorial_addSheet.value = 1
         }
 
+
+        BibleVerseReference = FirebaseDatabase.getInstance().getReference("LifeData").child("verse")
+        val bibleVerseListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                textView19.text = dataSnapshot.getValue().toString()
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w("TAG", "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        BibleVerseReference.addValueEventListener(bibleVerseListener)
+        VerseUrlReference = FirebaseDatabase.getInstance().getReference("LifeData").child("verseUrl")
+        val verseUrlListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                mVerseUrl = dataSnapshot.getValue().toString()
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w("TAG", "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        VerseUrlReference.addValueEventListener(verseUrlListener)
     }
+
+    private fun settingRecyclerView() {
+        rv_sheetList.setHasFixedSize(true)
+
+        val mLayoutManager = LinearLayoutManager(context)
+        mLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        rv_sheetList.layoutManager = mLayoutManager
+
+
+        val sheetListAdapter = viewModel.SheetList.value?.let { SheetListAdapter(it, this) }
+        rv_sheetList.adapter = sheetListAdapter
+
+        val marginDecoration = DefaultDecoration()
+        rv_sheetList.addItemDecoration(marginDecoration)
+
+        val snapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(rv_sheetList)
+        rv_sheetList.isNestedScrollingEnabled = false
+
+        rv_sheetList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                recyclerView.let { super.onScrollStateChanged(it, newState) }
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    val centerView = snapHelper.findSnapView(mLayoutManager)
+                    val pos = mLayoutManager.getPosition(centerView!!)
+//                    Log.d("TAG Position", "" + pos)
+//                    setFade(rv_sheetList?:return,pos)
+                    viewModel.sheetPage.value = pos
+                }
+            }
+        })
+
+
+    }
+
+    private fun setFade(recyclerView: RecyclerView, position: Int) {
+        // 中間頁面
+        val mCurView = recyclerView.layoutManager!!.findViewByPosition(position)
+        // 右邊頁面
+        val mRightView = recyclerView.layoutManager!!.findViewByPosition(position + 1)
+        // 左邊頁面
+        val mLeftView = recyclerView.layoutManager!!.findViewByPosition(position - 1)
+        // 右右邊頁面，再向右滑的時候會出現
+        val mRRView = recyclerView.layoutManager!!.findViewByPosition(position + 2)
+
+        if (mCurView != null) {
+            val anim = ObjectAnimator.ofFloat(mCurView, "alpha",0.5f,1f)
+            anim.setDuration(200)
+            anim.start()
+            mCurView.isClickable = true
+        }else Log.d("TAG","!mCurView")
+        if (mRightView != null) {
+//            val anim = ObjectAnimator.ofFloat(mRightView, "alpha",1f,0.5f)
+//            anim.setDuration(400)
+//            anim.start()
+            mRightView.alpha = 0.5f
+            mRightView.isClickable = false
+        }else Log.d("TAG","!mRightView")
+        if (mLeftView != null) {
+//            val anim = ObjectAnimator.ofFloat(mLeftView, "alpha",1f,0.5f)
+//            anim.setDuration(400)
+//            anim.start()
+            mLeftView.alpha = 0.5f
+            mLeftView.isClickable = false
+        }else Log.d("TAG","!mLeftView")
+        if (mRRView != null) {
+            val anim = ObjectAnimator.ofFloat(mRRView, "alpha",0.5f,1f)
+            anim.setDuration(200)
+            anim.start()
+            mRRView.isClickable = true
+        }else Log.d("TAG","!mRRView")
+
+
+    }
+
 
     private fun takeAns() {
         val MoreSheetsView : View = getLayoutInflater().inflate(R.layout.dialog_more_sheets,null)
@@ -246,7 +470,7 @@ class MainHome : BaseFragment(),SheetListController{
                     if(it.isChecked)SheetAd = "NotAd"
                 }
 
-                val currentDateTime= LocalDateTime.now()
+//                val currentDateTime= LocalDateTime.now()
 
 //                mMember = MemberClass(
 //                    id = currentDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")),
@@ -378,6 +602,7 @@ class MainHome : BaseFragment(),SheetListController{
         DVReference.addValueEventListener(DVListener)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun createNewList(){
         if(nameListviewModel.NameList.value?.size == 0){
             val builder2 = context?.let { it1 -> AlertDialog.Builder(it1) }
@@ -398,6 +623,8 @@ class MainHome : BaseFragment(),SheetListController{
             return
         }
         val currentDateTime= LocalDateTime.now()
+        val currentDateTimeOV= Calendar.getInstance().time
+
 //            val items_detail = 0
         val items_detailA = arrayListOf("空白選項","0","空白選項","0","空白選項","0","空白選項","0","空白選項","0","條件A")
         val items_detailB = arrayListOf("空白選項","0","空白選項","0","空白選項","0","空白選項","0","空白選項","0","條件B")
@@ -411,13 +638,25 @@ class MainHome : BaseFragment(),SheetListController{
         items.put("條件C", items_detailC)
         items.put("條件D", items_detailD)
         items.put("條件E", items_detailE)
-        mSheet = SheetClass(
-            id = currentDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")),
-            listName = "未命名表單",
-            rule = items,
-            sheetData = viewModel.mEmptySheet.value!!,
-            editDate = "empty",
-            history = "" )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mSheet = SheetClass(
+                id = currentDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")),
+                listName = "未命名表單",
+                rule = items,
+                sheetData = viewModel.mEmptySheet.value!!,
+                editDate = "empty",
+                history = "" )
+        }else{
+            val df = SimpleDateFormat("yyyyMMddHHmmss")
+            mSheet = SheetClass(
+                id = df.format(currentDateTimeOV),
+                listName = "未命名表單",
+                rule = items,
+                sheetData = viewModel.mEmptySheet.value!!,
+                editDate = "empty",
+                history = "" )
+        }
+
         viewModel.addList(mSheet,accountViewModel.userAccount.value?.userID.toString())
 
     }
@@ -453,5 +692,13 @@ class MainHome : BaseFragment(),SheetListController{
             viewModel.toEditSheet(id)
             ad?.dismiss()
         }
+    }
+
+    override fun onItemChanged(p: Int) {
+    }
+
+    interface OnSnapPositionChangeListener {
+
+        fun onSnapPositionChange(position: Int)
     }
 }

@@ -78,6 +78,7 @@
         android:text="TextView"
         android:textSize="20sp"
         android:visibility="gone"
+        android:gravity="center"
         android:textColor="@color/colorPrimary"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/img_Account"

@@ -2,10 +2,13 @@ package com.eric.groupsheet.EditSheet.EditSheet
 
 import android.content.Context
 import android.content.DialogInterface
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.View.*
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,10 +29,11 @@ import kotlin.collections.ArrayList
 import kotlin.collections.LinkedHashMap
 
 
+@RequiresApi(Build.VERSION_CODES.M)
 class EditSheet:BaseFragment() ,
     SheetDataController,
     SheetDataNameController,
-    View.OnScrollChangeListener {
+    OnScrollChangeListener {
     private val viewModel by viewModel<EditSheetViewModel>()
     lateinit var sheetDataAdapter : SheetDataAdapter
     lateinit var sheetDataNameAdapter : SheetDataNameController
@@ -82,8 +86,8 @@ class EditSheet:BaseFragment() ,
         }
         observe(viewModel.Tutorial_editSheet){
             if(it == 0){
-                cl_tutorial_editSheet.visibility = View.VISIBLE
-            }else cl_tutorial_editSheet.visibility = View.GONE
+                cl_tutorial_editSheet.visibility = VISIBLE
+            }else cl_tutorial_editSheet.visibility = GONE
         }
 
     }
