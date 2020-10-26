@@ -1,5 +1,6 @@
 package com.eric.groupsheet.NameList
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Build
@@ -18,8 +19,6 @@ import com.eric.groupsheet.base.observe
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.fragment_name_list.*
-import kotlinx.android.synthetic.main.fragment_name_list.adView
-import kotlinx.android.synthetic.main.fragment_name_list.got_it
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
@@ -54,7 +53,8 @@ class NameList:BaseFragment() ,NameListController{
         val sharedPreference =  context?.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         viewModel.Tutorial_addNameList.value = sharedPreference?.getInt("Tutorial_addNameList",0)
     }
-    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("SimpleDateFormat")
+//    @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
         tv_newName.setOnClickListener {
             if(viewModel.NameList.value?.size!! > 19){
@@ -98,16 +98,17 @@ class NameList:BaseFragment() ,NameListController{
                     rbAgeChild.let {
                         if(it.isChecked)userAge = "Child"
                     }
-                    val currentDateTime= LocalDateTime.now()
-                    val currentDateTimeOV= Calendar.getInstance().time
+
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        val currentDateTime= LocalDateTime.now()
                         mMember = MemberClass(
                             id = currentDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")),
                             who = etMemberName.text.toString(),
                             type = ToTypeNum( userSex , userAge )
                         )
                     }else{
+                        val currentDateTimeOV= Calendar.getInstance().time
                         val df = SimpleDateFormat("yyyyMMddHHmmss")
                         mMember = MemberClass(
                             id = df.format(currentDateTimeOV),
@@ -175,6 +176,7 @@ class NameList:BaseFragment() ,NameListController{
         viewModel.DeletMember(id,accountViewModel.userAccount.value?.userID.toString())
     }
 
+    @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun editMember(id: String) {
         var mMember = viewModel.getOneNameData(id)

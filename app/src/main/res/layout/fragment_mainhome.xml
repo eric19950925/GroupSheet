@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="26dp"
             android:text="聖經佳言"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:background="@drawable/btn_style_feature2"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
@@ -146,7 +146,7 @@
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/buy"
+        app:layout_constraintBottom_toTopOf="@+id/ll_ad_panel"
         app:layout_constraintTop_toBottomOf="@+id/rv_sheetList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

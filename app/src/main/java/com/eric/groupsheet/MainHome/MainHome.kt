@@ -622,8 +622,6 @@ class MainHome() : BaseFragment(),SheetListController {
             builder2?.show()
             return
         }
-        val currentDateTime= LocalDateTime.now()
-        val currentDateTimeOV= Calendar.getInstance().time
 
 //            val items_detail = 0
         val items_detailA = arrayListOf("空白選項","0","空白選項","0","空白選項","0","空白選項","0","空白選項","0","條件A")
@@ -639,6 +637,7 @@ class MainHome() : BaseFragment(),SheetListController {
         items.put("條件D", items_detailD)
         items.put("條件E", items_detailE)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val currentDateTime= LocalDateTime.now()
             mSheet = SheetClass(
                 id = currentDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")),
                 listName = "未命名表單",
@@ -647,6 +646,7 @@ class MainHome() : BaseFragment(),SheetListController {
                 editDate = "empty",
                 history = "" )
         }else{
+            val currentDateTimeOV= Calendar.getInstance().time
             val df = SimpleDateFormat("yyyyMMddHHmmss")
             mSheet = SheetClass(
                 id = df.format(currentDateTimeOV),
