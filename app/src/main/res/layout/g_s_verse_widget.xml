@@ -1,0 +1,86 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/widget_margin"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+        <TextClock
+            android:id="@+id/widget_hour"
+            android:layout_gravity="center_horizontal"
+            android:textSize="70sp"
+            android:format12Hour="hh:mm:ss"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextClock
+                android:id="@+id/widget_min"
+                android:layout_gravity="center_horizontal"
+                android:textSize="24sp"
+                android:gravity="top"
+                android:format12Hour="yyyy/MM/dd"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextClock
+                android:id="@+id/widget_ampm"
+                android:layout_gravity="center_horizontal"
+                android:textSize="24sp"
+                android:format12Hour=" - E a"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/btn_style_feature5"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/tv_verse_title"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:background="@drawable/btn_style_feature2"
+            android:text="@string/widget_verse_title"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/appwidget_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/img_more"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icons8_more_than"
+                android:contentDescription="@string/got_it" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

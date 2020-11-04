@@ -69,5 +69,7 @@ dependencies {
     //OCR （Optical Character Recognition，光學字符識别）
     //clickListener
     implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
+    //jsoup
+    implementation 'org.jsoup:jsoup:1.11.3'
 
 }
