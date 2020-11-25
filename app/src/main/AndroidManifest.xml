@@ -18,23 +18,58 @@
         android:roundIcon="@mipmap/ic_total"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <receiver android:name=".GSVerseWidget">
+
+<!--        <receiver-->
+<!--            android:name=".Widget.SmallSov.SmallSovWidget"-->
+<!--            android:label="表單捷徑">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />-->
+<!--            </intent-filter>-->
+
+<!--            <meta-data-->
+<!--                android:name="android.appwidget.provider"-->
+<!--                android:resource="@xml/small_sov_widget_info" />-->
+<!--        </receiver>-->
+<!--        <receiver-->
+<!--            android:name=".Widget.SheetOV.SheetOverViewWidget"-->
+<!--            android:label="表單預覽">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />-->
+<!--            </intent-filter>-->
+
+<!--            <meta-data-->
+<!--                android:name="android.appwidget.provider"-->
+<!--                android:resource="@xml/sheet_over_view_widget_info" />-->
+<!--        </receiver>-->
+
+<!--        <activity android:name=".Widget.SheetOV.SheetOverConfigureActivity">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />-->
+<!--                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+
+        <receiver
+            android:name=".Widget.GSVerse.GSVerseWidget"
+            android:label="經節時鐘">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-<!--                <action android:name="android.appwidget.action.ACTION_TIMEZONE_CHANGED" />-->
-<!--                <action android:name="android.appwidget.action.ACTION_TIME_CHANGED" />-->
-<!--                <action android:name="android.appwidget.action.ACTION_TIME_TICK" />-->
+                <action android:name="android.appwidget.action.ACTION_TIMEZONE_CHANGED" />
+                <action android:name="android.appwidget.action.ACTION_TIME_CHANGED" />
+                <action android:name="android.appwidget.action.ACTION_TIME_TICK" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/g_s_verse_widget_info" />
         </receiver>
-         <activity android:name=".GSVerseWidgetConfigureActivity">
-         <intent-filter>
-         <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-         </intent-filter>
-         </activity>
+        <activity android:name=".Widget.GSVerse.GSVerseConfigureActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+        </activity>
+
         <!-- AdMob -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

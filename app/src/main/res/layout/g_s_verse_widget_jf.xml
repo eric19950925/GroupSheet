@@ -4,18 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/widget_margin"
-    android:background="@drawable/richblue_to_trans_stroke"
     android:orientation="vertical"
     >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:layout_gravity="center"
         android:orientation="vertical">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_gravity="center"
@@ -26,13 +24,15 @@
                 android:textSize="90sp"
                 android:format12Hour="hh"
                 android:text="18"
-                android:layout_marginStart="20dp"
-                android:fontFamily="@font/free_primus"
+                android:fontFamily="@font/jf_openhuninn_1_1"
                 android:typeface="monospace"
-                android:textColor="@color/white"
-                android:layout_width="0dp"
-                android:gravity="center"
-                android:layout_weight="0.7"
+                android:textColor="#3671bf"
+                android:shadowDx="-10"
+                android:shadowDy="-10"
+                android:shadowColor="@color/white"
+                android:shadowRadius="2"
+                android:layout_margin="20dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextClock
                 android:id="@+id/widget_sec"
@@ -40,12 +40,12 @@
                 android:gravity="center"
                 android:textSize="20sp"
                 android:format12Hour="ss"
+                android:background="@drawable/bg_yellow_circle"
                 android:text="25"
                 android:typeface="monospace"
-                android:fontFamily="@font/free_primus"
+                android:fontFamily="@font/jf_openhuninn_1_1"
                 android:textColor="@color/white"
-                android:layout_width="0dp"
-                android:layout_weight="0.3"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextClock
                 android:id="@+id/widget_min"
@@ -54,15 +54,19 @@
                 android:textSize="90sp"
                 android:format12Hour="mm"
                 android:text="30"
-                android:layout_marginEnd="20dp"
                 android:typeface="monospace"
-                android:fontFamily="@font/free_primus"
-                android:textColor="@color/white"
-                android:layout_width="0dp"
-                android:layout_weight="0.7"
+                android:layout_margin="20dp"
+                android:fontFamily="@font/jf_openhuninn_1_1"
+                android:textColor="#f26444"
+                android:shadowDx="10"
+                android:shadowDy="10"
+                android:shadowColor="@color/white"
+                android:shadowRadius="2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
+                android:background="@drawable/btn_style_white_circle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -72,11 +76,10 @@
                 android:layout_gravity="center"
                 android:textSize="24sp"
                 android:gravity="center"
-                android:fontFamily="@font/free_primus"
+                android:fontFamily="@font/jf_openhuninn_1_1"
                 android:format12Hour="yyyy. MM. dd"
                 android:text="2020. 11. 11"
-                android:textColor="@color/white"
-                android:paddingBottom="10dp"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextClock
@@ -84,31 +87,46 @@
                 android:layout_gravity="center"
                 android:textSize="24sp"
                 android:gravity="top"
-                android:fontFamily="@font/free_primus"
+                android:fontFamily="@font/jf_openhuninn_1_1"
                 android:format12Hour=" - E a"
                 android:text=" - 週三 下午"
-                android:textColor="@color/white"
-                android:paddingBottom="10dp"
+                android:textColor="#2a8c55"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
     </LinearLayout>
     <LinearLayout
+        android:background="@drawable/btn_style_white_stroke"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/appwidget_text"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:fontFamily="@font/free_primus"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                android:id="@+id/appwidget_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="hello wrold"
+                android:fontFamily="@font/jf_openhuninn_1_1"
+                android:textColor="@color/white"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowColor="@color/black"
+                android:shadowRadius="2"
+                android:lineSpacingMultiplier="1.2"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

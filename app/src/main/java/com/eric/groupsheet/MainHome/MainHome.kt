@@ -587,7 +587,7 @@ class MainHome() : BaseFragment(),SheetListController {
         val DVListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val version = dataSnapshot.getValue().toString()
-                Log.d("TAG",version+" "+sharedPreference?.getInt("NewsVersion",0))
+                Log.d("TAG",version+" "+sharedPreference?.getInt("NewsVersion",0)+" "+accountViewModel.userAccount.value?.newsVersion)
                 if(version.equals(sharedPreference?.getInt("NewsVersion",0).toString())){
                     img_news.visibility = View.GONE
                 }

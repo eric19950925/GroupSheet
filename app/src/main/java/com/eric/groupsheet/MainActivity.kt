@@ -1,6 +1,8 @@
 package com.eric.groupsheet
 
 import android.animation.ObjectAnimator
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -13,6 +15,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +24,10 @@ import com.eric.groupsheet.MVVM.Navigator
 import com.eric.groupsheet.MVVM.toLifePage
 import com.eric.groupsheet.MVVM.toLoginPage
 import com.eric.groupsheet.MainHome.SharedAccountViewModel
+import com.eric.groupsheet.Widget.GSVerse.*
+import com.eric.groupsheet.Widget.GSVerse.updateAppWidget_regular
+import com.eric.groupsheet.Widget.SheetOV.SheetOverViewWidget
+import com.eric.groupsheet.Widget.SheetOV.updateAppWidget
 import com.eric.groupsheet.base.BaseFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -79,6 +86,22 @@ class MainActivity : AppCompatActivity() {
             btn_sign_out.visibility = View.GONE
             btn_sign.visibility = View.VISIBLE
             btn_life.visibility = View.VISIBLE
+
+            //update widget status to log out
+            val prefs_edit = this.getSharedPreferences("PREFS_NAME", Context.MODE_PRIVATE).edit()
+            prefs_edit.putBoolean("LogInStatus", false)
+            prefs_edit.apply()
+            //Manual update all widgets with widgetIds
+            val appWidgetManager = AppWidgetManager.getInstance(this)
+            val mSheetOverViewWidget = ComponentName(
+                applicationContext,
+                SheetOverViewWidget::class.java
+            )
+            val SheetOverViewWidget_IDs = appWidgetManager.getAppWidgetIds(mSheetOverViewWidget)
+            for(id in SheetOverViewWidget_IDs){
+                updateAppWidget(this, appWidgetManager, id)
+            }
+
         }
         img_Account.setOnClickListener {
             if(versionInfo.equals(versionInfo)){
@@ -106,7 +129,20 @@ class MainActivity : AppCompatActivity() {
         val editor = sharedPreference?.edit()
         editor?.putString("Verse",myCfg.mVerse)
         editor?.putString("VerseUrl",myCfg.mVerseUrl)
+        editor?.putString("VerseUrl",myCfg.mVerseUrl)
         editor?.apply()
+        //manual update widgets
+        val appWidgetManager = AppWidgetManager.getInstance(this)
+
+        val mGSVerseWidget = ComponentName(
+            applicationContext,
+            GSVerseWidget::class.java
+        )
+
+        val GSVerseWidget_IDs = appWidgetManager.getAppWidgetIds(mGSVerseWidget)
+        for(GSclockId in GSVerseWidget_IDs){
+            updateAppWidget_regular(this, appWidgetManager, GSclockId)
+        }
     }
 
     private fun showInternetDialog(context: Context) {
@@ -171,6 +207,7 @@ class MainActivity : AppCompatActivity() {
                     it.key == "updateVersion"
                 }?.value.toString().toInt()//long can not change to int so...
                 SaveConfig()
+                getNewsVersion()
                 tv_version.text = "現行版本 : ${myCfg.mVersion}"
                 Log.d("TAG", "${myCfg.mVersion}  $versionInfo")
 
@@ -186,7 +223,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         versionReference.addValueEventListener(versionListener)
-        getNewsVersion()
+
     }
 
     private fun getNewsVersion() {

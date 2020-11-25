@@ -1,10 +1,11 @@
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/widget_margin"
-    android:background="@drawable/richblue_to_trans_stroke"
+    android:background="@drawable/bg_2049"
     android:orientation="vertical"
     >
     <LinearLayout
@@ -27,9 +28,9 @@
                 android:format12Hour="hh"
                 android:text="18"
                 android:layout_marginStart="20dp"
-                android:fontFamily="@font/free_primus"
+                android:fontFamily="@font/free_blade_runner"
                 android:typeface="monospace"
-                android:textColor="@color/white"
+                android:textColor="@color/color2049"
                 android:layout_width="0dp"
                 android:gravity="center"
                 android:layout_weight="0.7"
@@ -42,8 +43,8 @@
                 android:format12Hour="ss"
                 android:text="25"
                 android:typeface="monospace"
-                android:fontFamily="@font/free_primus"
-                android:textColor="@color/white"
+                android:fontFamily="@font/free_blade_runner"
+                android:textColor="@color/color2049"
                 android:layout_width="0dp"
                 android:layout_weight="0.3"
                 android:layout_height="wrap_content"/>
@@ -56,8 +57,8 @@
                 android:text="30"
                 android:layout_marginEnd="20dp"
                 android:typeface="monospace"
-                android:fontFamily="@font/free_primus"
-                android:textColor="@color/white"
+                android:fontFamily="@font/free_blade_runner"
+                android:textColor="@color/color2049"
                 android:layout_width="0dp"
                 android:layout_weight="0.7"
                 android:layout_height="wrap_content"/>
@@ -72,7 +73,7 @@
                 android:layout_gravity="center"
                 android:textSize="24sp"
                 android:gravity="center"
-                android:fontFamily="@font/free_primus"
+                android:fontFamily="@font/free_blade_runner"
                 android:format12Hour="yyyy. MM. dd"
                 android:text="2020. 11. 11"
                 android:textColor="@color/white"
@@ -84,7 +85,7 @@
                 android:layout_gravity="center"
                 android:textSize="24sp"
                 android:gravity="top"
-                android:fontFamily="@font/free_primus"
+                android:fontFamily="@font/free_blade_runner"
                 android:format12Hour=" - E a"
                 android:text=" - 週三 下午"
                 android:textColor="@color/white"
@@ -107,8 +108,13 @@
             android:layout_weight="1"
             android:gravity="center"
             android:fontFamily="@font/free_primus"
-            android:textColor="@color/white"
+            android:textColor="@color/color2049"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowColor="@color/black"
+            android:shadowRadius="8"
             android:textSize="20sp" />
     </LinearLayout>
+
 
 </LinearLayout>

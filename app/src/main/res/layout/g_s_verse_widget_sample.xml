@@ -3,19 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_round_blur"
     android:padding="@dimen/widget_margin"
-    android:background="@drawable/richblue_to_trans_stroke"
     android:orientation="vertical"
     >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_gravity="center"
@@ -23,43 +23,44 @@
             <TextClock
                 android:id="@+id/widget_hour"
                 android:layout_gravity="center"
-                android:textSize="90sp"
+                android:gravity="center"
+                android:textSize="110sp"
                 android:format12Hour="hh"
                 android:text="18"
-                android:layout_marginStart="20dp"
-                android:fontFamily="@font/free_primus"
+                android:fontFamily="@font/aurelio_titling_trial"
                 android:typeface="monospace"
                 android:textColor="@color/white"
-                android:layout_width="0dp"
-                android:gravity="center"
+                android:layout_marginStart="40dp"
                 android:layout_weight="0.7"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
             <TextClock
                 android:id="@+id/widget_sec"
+                android:layout_margin="20dp"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="20sp"
                 android:format12Hour="ss"
                 android:text="25"
                 android:typeface="monospace"
-                android:fontFamily="@font/free_primus"
+                android:fontFamily="@font/aurelio_titling_trial"
                 android:textColor="@color/white"
+                android:layout_weight="0.2"
                 android:layout_width="0dp"
-                android:layout_weight="0.3"
                 android:layout_height="wrap_content"/>
             <TextClock
                 android:id="@+id/widget_min"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textSize="90sp"
+                android:textSize="110sp"
                 android:format12Hour="mm"
                 android:text="30"
-                android:layout_marginEnd="20dp"
                 android:typeface="monospace"
-                android:fontFamily="@font/free_primus"
+                android:fontFamily="@font/aurelio_titling_trial"
                 android:textColor="@color/white"
-                android:layout_width="0dp"
+                android:layout_marginEnd="40dp"
                 android:layout_weight="0.7"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
@@ -72,7 +73,7 @@
                 android:layout_gravity="center"
                 android:textSize="24sp"
                 android:gravity="center"
-                android:fontFamily="@font/free_primus"
+                android:fontFamily="@font/aurelio_titling_trial"
                 android:format12Hour="yyyy. MM. dd"
                 android:text="2020. 11. 11"
                 android:textColor="@color/white"
@@ -84,7 +85,7 @@
                 android:layout_gravity="center"
                 android:textSize="24sp"
                 android:gravity="top"
-                android:fontFamily="@font/free_primus"
+                android:fontFamily="@font/aurelio_titling_trial"
                 android:format12Hour=" - E a"
                 android:text=" - 週三 下午"
                 android:textColor="@color/white"
@@ -98,17 +99,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/appwidget_text"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"
+
+            />
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:fontFamily="@font/free_primus"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                android:id="@+id/appwidget_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:fontFamily="@font/aurelio_titling_trial"
+                android:textColor="@color/white"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowColor="@color/black"
+                android:shadowRadius="8"
+                android:text="生日快樂"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
