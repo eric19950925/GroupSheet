@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.eric.groupsheet.MainHome.SharedAccountViewModel
 import com.eric.groupsheet.R
+import com.eric.groupsheet.Widget.SheetOV.SovWidget
 import com.eric.groupsheet.base.BaseFragment
 import com.eric.groupsheet.base.listenClick
 import com.eric.groupsheet.base.observe
@@ -152,10 +153,18 @@ class EditSheet:BaseFragment() ,
             builder?.setView(EditSheetNameView)
             builder?.setPositiveButton("確定", DialogInterface.OnClickListener { dialog, which ->
 
+                tv_title.text = ed_name.text.toString()
                 arguments?.getString(SHEET_ID)?.let {
                     viewModel.updateSheetName(it, ed_name.text.toString())
+                    //update widget
+                    (SovWidget::class.java)
+                        .newInstance()
+                        .updateWidgetDataBySheetFile(
+                            context?:return@OnClickListener,
+                            it,
+                            ed_name.text.toString()
+                        )
                 }
-                tv_title.text = ed_name.text.toString()
                 dialog.dismiss()
             })?.setNegativeButton("取消", DialogInterface.OnClickListener { dialog, which ->
                 dialog.dismiss()

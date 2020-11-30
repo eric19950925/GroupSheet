@@ -10,6 +10,7 @@ class SheetClass(
     sheetData: List<SheetItemClass> = emptyList<SheetItemClass>(),
     editDate: String = "",
     type: Int = 0,
+    check: Boolean = false,
     history: String = "")
 {//如何建立類別kotlin
     var mEditDate : String = ""
@@ -17,6 +18,7 @@ class SheetClass(
     var mHistory : String = ""
     var mName : String = ""
     var mType : Int = 0
+    var mCheck : Boolean = false
     var mSheetData : List<SheetItemClass> = emptyList<SheetItemClass>()
     var mRule : HashMap<String, ArrayList<String>> = HashMap<String, ArrayList<String>>()
 
@@ -28,6 +30,7 @@ class SheetClass(
         this.mEditDate = editDate
         this.mHistory = history
         this.mType = type
+        this.mCheck = check ?: false
     }
 
     fun isItemSame(other: SheetClass): Boolean {

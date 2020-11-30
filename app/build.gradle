@@ -16,8 +16,8 @@ android {
         applicationId "com.eric.groupsheet"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 7
-        versionName "1.0.3"
+        versionCode 8
+        versionName "1.0.4"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -69,5 +69,7 @@ dependencies {
     //OCR （Optical Character Recognition，光學字符識别）
     //clickListener
     implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
+    //jsoup
+    implementation 'org.jsoup:jsoup:1.11.3'
 
 }
