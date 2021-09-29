@@ -1,5 +1,5 @@
 ### Play store link : https://play.google.com/store/apps/details?id=com.eric.groupsheet
-## * 功能圖示
+### 功能圖示
 <br/>
 #### 進入APP，選擇登入之帳戶<br/>
 <img src="https://github.com/eric19950925/GroupSheet/blob/master/116237.jpg" width="250" />
