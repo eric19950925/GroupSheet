@@ -3,7 +3,8 @@
 
 ### 進入APP，選擇登入之帳戶
 <img src="https://github.com/eric19950925/GroupSheet/blob/master/116237.jpg" width="250" />
-<br/>選擇之後比對是否為最新版本<br/>
+
+### 選擇之後比對是否為最新版本
 <img src="https://github.com/eric19950925/GroupSheet/blob/master/116238.jpg" width="250" />
 
 ### 教學引導
